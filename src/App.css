@@ -1,0 +1,18 @@
+.app{
+    width: 100vw;
+    gap: 20px;
+    padding: 20px;
+}
+
+.app > div{
+    width: 50%;
+}
+.textInput{
+    height: 80vh!important
+}
+.outputs > div{
+    margin-top: 10px;
+}
+.outputs:nth-child(odd){
+    background-color: red;
+}
