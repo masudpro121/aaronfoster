@@ -3,7 +3,11 @@
     gap: 20px;
     padding: 20px;
 }
-
+.inputSection {
+    position: sticky;
+    height: 100vh;
+    top: 30px;
+}
 .app > div{
     width: 50%;
 }
@@ -12,7 +16,13 @@
 }
 .outputs > div{
     margin-top: 10px;
+    color: white;
+    padding: 2px 10px;
+    border-radius: 3px;
 }
-.outputs:nth-child(odd){
-    background-color: red;
+.outputs div:nth-child(even){
+    background-color: #2594b3;
+}
+.outputs div:nth-child(odd){
+    background-color: #f05e5e;
 }

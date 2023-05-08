@@ -16,9 +16,10 @@ function App() {
   console.log(outputs, 'outputs');
 
   useEffect(()=>{
-    setOutputs(initialOutput)
+    const myoutput = initialOutput.filter(i=>i != '')
+    setOutputs(myoutput)
   },[initialOutput])
-  // console.log(inputs, 'inputs');
+
   const handleInput = () =>{
     const limit = 30;
     let mytext = text.split('\n')
@@ -32,17 +33,17 @@ function App() {
       `)
       .then(res=>{
         const content= res.data.choices[0].text
-        const regOut = content.match(/^(Output: )(.*)/gim)
+        const regOut = content.split('\n')
         myarr = [...myarr, ...regOut]
         setInitialOutput(myarr)
       })
     }
-    
   }
+  console.log(outputs, 'outputs');
   return (
     <div className="app d-flex">
-       <div>
-        <FloatingLabel controlId="floatingTextarea2" label="Paste your texts..">
+       <div className="inputSection">
+        <FloatingLabel controlId="floatingTextarea2" >
           <Form.Control
             as="textarea"
             placeholder="Leave a comment here"
@@ -58,8 +59,7 @@ function App() {
             return (
               <div key={output+id}>
                 {
-                  // output.split(' ').length<10 &&
-                  // output.replace(/output:/i,'')
+                  output.split(' ').length<10 &&
                   output
                 }
               </div>
