@@ -7,20 +7,23 @@ import BotImg from "./img/bot.jpg";
 import {  BsFillFileArrowDownFill } from "react-icons/bs";
 import {  AiOutlineAppstoreAdd } from "react-icons/ai";
 import { Button, FloatingLabel, Form } from "react-bootstrap";
+import debounce from "./utils/utils";
 function App() {
   const [text, setText] = useState('');
-  const [inputs, setInputs] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [outputs, setOutputs] = useState([]);
   const [initialOutput, setInitialOutput] = useState([]);
 
-  console.log(outputs, 'outputs');
 
   useEffect(()=>{
-    const myoutput = initialOutput.filter(i=>i != '')
+    const myoutput = initialOutput.filter(i=>i.length>1)
     setOutputs(myoutput)
+    setLoading(false)
   },[initialOutput])
 
   const handleInput = () =>{
+    if(text.length>1){
+    setLoading(true)
     const limit = 30;
     let mytext = text.split('\n')
     
@@ -38,6 +41,9 @@ function App() {
         setInitialOutput(myarr)
       })
     }
+  }else{
+    window.alert('Fill the input field')
+  }
   }
   console.log(outputs, 'outputs');
   return (
@@ -51,10 +57,11 @@ function App() {
             onChange={e=>setText(e.target.value)}
           />
         </FloatingLabel>
-        <Button className="mt-2" onClick={handleInput}>Generate</Button>
+        <Button className="mt-2" onClick={debounce(handleInput, 300)}>Generate</Button>
        </div>
        <div className="outputs">
         {
+          loading ? 'Loading...':
           outputs.map((output, id)=>{
             return (
               <div key={output+id}>
